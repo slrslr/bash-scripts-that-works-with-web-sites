@@ -1,0 +1,13 @@
+#!/bin/bash
+# Script to record non-200 HTTP return codes in time on a defined URL. Possibly should be run in screen, on background (suffixed by " &")
+
+while true;do
+
+url="https://domain.com/sub?=parameter"
+result=$(curl --silent --location --head "$url"|grep "HTTP/")
+
+if [[ "$result" != *"200"* ]];then
+echo "$(date) $result" >> siteuptimelog
+fi
+sleep 5
+done
